@@ -1,19 +1,16 @@
-#En la vm 196.168.56.9
+#En la vm 10.0.2.15
 sudo su root
 dnf install ansible -y
 ansible-version
 ssh-keygen
-ssh-copy-id root@196.168.56.9
+ssh-copy-id liveuser@10.0.2.4
 touch inventory
 
 vim inventory
 # Dentro del vim inventory:
 
 [desarrollo]
-196.168.56.9
-
-# Guardamos y salimos: wq
-# Verificamos la conectividad con el host
+10.0.2.4 ansible_user=liveuser
 
 ansible -i inventory desarrollo -m ping
 
@@ -44,7 +41,7 @@ vim apache-playbook.yml
 
 ansible-playbook -i inventory apache-playbook.yml
 
-#En la vm 196.168.56.8
+#En la vm 10.0.2.4
 rpm -q httpd # Para verificar que apache se instalo
 systemctl status httpd # Para verificar que apache este en ejecucion
-http://196.168.56.9
+http://10.0.2.15
